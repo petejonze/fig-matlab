@@ -153,6 +153,15 @@ function fns = fig_save(fhandles, fnames, outdir, fileformat, dpi, crop, fnMetaI
    	if nargin < 8 || isempty(stampit)
         stampit = false;
     end
+
+    % choose export backend: 'export_fig' (default) or the new MATLAB native: 'exportgraphics'
+    backend = 'export_fig';
+    if ~isempty(varargin)
+        if any(strcmpi(varargin,'exportgraphics'))
+            backend = 'exportgraphics';
+            varargin(strcmpi(varargin,'exportgraphics')) = [];
+        end
+    end
     
     %% Output
     fns = {};
@@ -193,8 +202,16 @@ function fns = fig_save(fhandles, fnames, outdir, fileformat, dpi, crop, fnMetaI
             fns{end+1} = fn; %#ok
             switch ftype
                 case {'pdf', 'eps', 'tiff', 'jpg', 'bmp'}
-                    set(fhandles(fnum), 'PaperPositionMode', 'auto');
-                    export_fig(fn,['-' ftype],cropFlag,fhandles(fnum));
+                    % set(fhandles(fnum), 'PaperPositionMode', 'auto');
+                    % export_fig(fn,['-' ftype],cropFlag,fhandles(fnum));
+
+                    if strcmpi(backend,'exportgraphics')
+                        exportgraphics(fhandles(fnum),fn,'ContentType','vector');
+                    else
+                        set(fhandles(fnum),'PaperPositionMode','auto');
+                        export_fig(fn,'-pdf',cropFlag,fhandles(fnum));
+                    end
+
                 case 'png'
                     if ismac % export_fig seems to work better..
                         export_fig(fn,'-png',cropFlag,'-painters',sprintf('-r%i',dpi),varargin{:},fhandles(fnum)); %zbuffer and opengl don't seem to work well with latex text

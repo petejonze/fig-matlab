@@ -106,12 +106,12 @@ function [hXTitle,hYTitle,hTitle] = fig_figFormat(hFig, xTitle,yTitle,mainTitle,
     
     %% init (3)
     dti = get(0,'DefaultTextInterpreter');
-    %set(0,'DefaultTextInterpreter','latex')
-    if ~(ismac && strcmpi(get(gcf,'Renderer'),'opengl')) % this doesn't work when using opengl on the mac
-        set(0,'DefaultTextInterpreter','latex')
-    else
-        set(0,'DefaultTextInterpreter','tex')
-    end
+    % %set(0,'DefaultTextInterpreter','latex')
+    % if ~(ismac && strcmpi(get(gcf,'Renderer'),'opengl')) % this doesn't work when using opengl on the mac
+        set(0,'DefaultTextInterpreter','latex');
+    % else
+    %     set(0,'DefaultTextInterpreter','tex')
+    % end
     
     try 
         %% Draw

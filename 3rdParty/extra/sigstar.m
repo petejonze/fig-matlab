@@ -260,7 +260,7 @@ function H=makeSignificanceBar(x,y,p,showExactPVal)
     if ~isnan(p) && ~showExactPVal
         offset=0.005;
     else
-        offset=0.02;
+        offset=0.05; % 0.02;
     end
 
     starY=mean(y)+myRange(ylim)*offset;

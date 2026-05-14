@@ -370,11 +370,12 @@ function [hXTickLbl, hYTickLbl, c_axes, hxAxisTitle, hyAxisTitle, axesHandle] = 
 
         fh = get(axesHandle,'Parent');
         dti = get(0,'DefaultTextInterpreter');
-        if ~(ismac && strcmpi(get(gcf,'Renderer'),'opengl')) % this doesn't work when using opengl on the mac
-            set(0,'DefaultTextInterpreter','latex')
-        else
-            set(0,'DefaultTextInterpreter','tex')
-        end
+        %if ~(ismac && strcmpi(get(gcf,'Renderer'),'opengl')) % this doesn't work when using opengl on the mac
+        %    set(0,'DefaultTextInterpreter','latex')
+        %else
+        %    set(0,'DefaultTextInterpreter','tex')
+        %end
+        set(0,'DefaultTextInterpreter','latex');
         hXTickLbl = []; %#ok
         hYTickLbl = []; %#ok
         
